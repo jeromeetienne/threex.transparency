@@ -13,16 +13,15 @@
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		add an object and make it move					//
-	//////////////////////////////////////////////////////////////////////////////////	
-	// var geometry	= new THREE.CubeGeometry( 1, 1, 1);
-	// var material	= new THREE.MeshNormalMaterial();
-	// var mesh	= new THREE.Mesh( geometry, material );
-	// scene.add( mesh );
-	
-	// updateFcts.push(function(delta, now){
-	// 	mesh.rotation.x += 1 * delta;
-	// 	mesh.rotation.y += 0.01;		
-	// })
+	//////////////////////////////////////////////////////////////////////////////////
+	var geometry	= new THREE.CubeGeometry( 1, 1, 1);
+	var material	= new THREE.MeshNormalMaterial();
+	var cube	= new THREE.Mesh( geometry, material );
+	scene.add( cube );
+	updateFcts.push(function(delta, now){
+		cube.rotation.x += 1 * delta;
+		cube.rotation.y += 0.01;		
+	})
 	
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Camera Controls							//
@@ -34,7 +33,7 @@
 	}, false)
 	updateFcts.push(function(delta, now){
 		camera.position.x += (mouse.x*10 - camera.position.x) * 0.01
-		camera.position.y += (mouse.y*5 - camera.position.y) * 0.01
+		camera.position.y += (mouse.y*10 - camera.position.y) * 0.01
 		camera.lookAt( scene.position )
 	})
 
@@ -51,7 +50,7 @@
 	context.strokeRect( 0, 0, canvas.width, canvas.height );
 	context.font	= "bolder 50px Verdana";
 	context.fillStyle = 'black'
-	context.fillText('threeX', 30, 50/2+canvas.height/2);
+	context.fillText('THREEx', 30, 50/2+canvas.height/2);
 	var texture = new THREE.Texture( canvas );
 	texture.needsUpdate = true;
 
