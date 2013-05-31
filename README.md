@@ -3,7 +3,7 @@ threex.transparency
 
 extension to easily handle transparency in three.js
 
-## How to use it ?
+## How To Use It ?
 
 First you setup all the objects
 
@@ -20,3 +20,19 @@ Second you update all your transparent objects at every frame.
 ```
 THREEx.Transparency.update(scene, camera)
 ```
+
+## How To Run Examples
+
+to run examples, you may need to install submodules e.g.
+[three.js](http://threejs.org/)
+or
+[require.js](http://requirejs.org/). Just do
+
+```
+git submodule init
+git submodule update
+```
+
+## License
+
+released under MIT license
