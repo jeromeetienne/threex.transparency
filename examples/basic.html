@@ -12,45 +12,6 @@
 	camera.position.z = 3;
 
 	//////////////////////////////////////////////////////////////////////////////////
-	//		add an object and make it move					//
-	//////////////////////////////////////////////////////////////////////////////////
-	var geometry	= new THREE.CubeGeometry( 1, 1, 1);
-	var material	= new THREE.MeshNormalMaterial();
-	var cube	= new THREE.Mesh( geometry, material );
-	scene.add( cube );
-	updateFcts.push(function(delta, now){
-		cube.rotation.x += 1 * delta;
-		cube.rotation.y += 0.01;		
-	})
-
-	//////////////////////////////////////////////////////////////////////////////////
-	//		add an object and make it move					//
-	//////////////////////////////////////////////////////////////////////////////////
-	var geometry	= new THREE.SphereGeometry( 0.5 );
-	var material	= new THREE.MeshNormalMaterial();
-	var sphere	= new THREE.Mesh( geometry, material );
-	scene.add( sphere );
-	updateFcts.push(function(delta, now){
-		var angle	= 0.2 * now * Math.PI * 2
-		sphere.position.x	= Math.cos(angle)*3.5
-		sphere.position.z	= Math.sin(angle)*3.5		
-	})
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Camera Controls							//
-	//////////////////////////////////////////////////////////////////////////////////
-	var mouse	= {x : 0, y : 0}
-	document.addEventListener('mousemove', function(event){
-		mouse.x	= (event.clientX / window.innerWidth ) - 0.5
-		mouse.y	= (event.clientY / window.innerHeight) - 0.5
-	}, false)
-	updateFcts.push(function(delta, now){
-		camera.position.x += (mouse.x*10 - camera.position.x) * 0.03
-		camera.position.y += (mouse.y*10 - camera.position.y) * 0.03
-		camera.lookAt( scene.position )
-	})
-
-	//////////////////////////////////////////////////////////////////////////////////
 	//		build the texture						//
 	//////////////////////////////////////////////////////////////////////////////////
 	
@@ -78,7 +39,7 @@
 	material.side	= THREE.DoubleSide
 	material.transparent	= true	// <- THIS is the key part
 
-	var nObjects	= 50
+	var nObjects	= 150
 	for(var i = 0; i < nObjects; i++){
 		var mesh	= new THREE.Mesh(geometry, material);
 		scene.add(mesh)
@@ -97,6 +58,45 @@
 	THREEx.Transparency.init(scene)
 	updateFcts.push(function(delta, now){
 		THREEx.Transparency.update(scene, camera)
+	})
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		add an cube and make it move					//
+	//////////////////////////////////////////////////////////////////////////////////
+	var geometry	= new THREE.CubeGeometry( 1, 1, 1);
+	var material	= new THREE.MeshNormalMaterial();
+	var cube	= new THREE.Mesh( geometry, material );
+	scene.add( cube );
+	updateFcts.push(function(delta, now){
+		cube.rotation.x += 1 * delta;
+		cube.rotation.y += 0.01;		
+	})
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		add an sphere and make it move					//
+	//////////////////////////////////////////////////////////////////////////////////
+	var geometry	= new THREE.SphereGeometry( 0.5 );
+	var material	= new THREE.MeshNormalMaterial();
+	var sphere	= new THREE.Mesh( geometry, material );
+	scene.add( sphere );
+	updateFcts.push(function(delta, now){
+		var angle	= 0.2 * now * Math.PI * 2
+		sphere.position.x	= Math.cos(angle)*3.5
+		sphere.position.z	= Math.sin(angle)*3.5		
+	})
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Camera Controls							//
+	//////////////////////////////////////////////////////////////////////////////////
+	var mouse	= {x : 0, y : 0}
+	document.addEventListener('mousemove', function(event){
+		mouse.x	= (event.clientX / window.innerWidth ) - 0.5
+		mouse.y	= (event.clientY / window.innerHeight) - 0.5
+	}, false)
+	updateFcts.push(function(delta, now){
+		camera.position.x += (mouse.x*10 - camera.position.x) * 0.03
+		camera.position.y += (mouse.y*10 - camera.position.y) * 0.03
+		camera.lookAt( scene.position )
 	})
 
 
