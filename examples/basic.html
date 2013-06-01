@@ -8,7 +8,7 @@
 
 	var updateFcts	= [];
 	var scene	= new THREE.Scene();
-	var camera	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100 );
+	var camera	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10 );
 	camera.position.z = 3;
 
 	//////////////////////////////////////////////////////////////////////////////////
@@ -22,6 +22,19 @@
 		cube.rotation.x += 1 * delta;
 		cube.rotation.y += 0.01;		
 	})
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		add an object and make it move					//
+	//////////////////////////////////////////////////////////////////////////////////
+	var geometry	= new THREE.SphereGeometry( 0.5 );
+	var material	= new THREE.MeshNormalMaterial();
+	var sphere	= new THREE.Mesh( geometry, material );
+	scene.add( sphere );
+	updateFcts.push(function(delta, now){
+		var angle	= 0.2 * now * Math.PI * 2
+		sphere.position.x	= Math.cos(angle)*3.5
+		sphere.position.z	= Math.sin(angle)*3.5		
+	})
 	
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Camera Controls							//
@@ -32,8 +45,8 @@
 		mouse.y	= (event.clientY / window.innerHeight) - 0.5
 	}, false)
 	updateFcts.push(function(delta, now){
-		camera.position.x += (mouse.x*10 - camera.position.x) * 0.01
-		camera.position.y += (mouse.y*10 - camera.position.y) * 0.01
+		camera.position.x += (mouse.x*10 - camera.position.x) * 0.03
+		camera.position.y += (mouse.y*10 - camera.position.y) * 0.03
 		camera.lookAt( scene.position )
 	})
 
@@ -46,13 +59,14 @@
 	canvas.height	= 64;
 	var context	= canvas.getContext( '2d' );
 	context.lineWidth = 10;
-	context.strokeStyle = 'black';
+	context.strokeStyle = 'cyan';
 	context.strokeRect( 0, 0, canvas.width, canvas.height );
 	context.font	= "bolder 50px Verdana";
-	context.fillStyle = 'black'
+	context.fillStyle = 'blue'
 	context.fillText('THREEx', 30, 50/2+canvas.height/2);
 	var texture = new THREE.Texture( canvas );
-	texture.needsUpdate = true;
+	texture.needsUpdate	= true;
+	texture.anisotropy	= 16
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		add random Planes						//
@@ -64,7 +78,7 @@
 	material.side	= THREE.DoubleSide
 	material.transparent	= true	// <- THIS is the key part
 
-	var nObjects	= 150
+	var nObjects	= 50
 	for(var i = 0; i < nObjects; i++){
 		var mesh	= new THREE.Mesh(geometry, material);
 		scene.add(mesh)
