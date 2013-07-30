@@ -1,7 +1,33 @@
 threex.transparency
 ===================
 
-extension to easily handle transparency in three.js
+It is a three.js extension to easily handle transparency.
+Here is a [basic example](http://jeromeetienne.github.io/threex.transparency/examples/basic.html). It is released under MIT license.
+
+## How To install it
+
+You can install it manually or with
+[bower](http://bower.io/).
+for the manual version, first include ```threex.transparency.js``` with the usual
+
+```html
+<script src='threex.transparency.js'></script>
+```
+
+or with
+[bower](http://bower.io/) 
+you type the following to install the package.
+
+```bash
+bower install -s threex.transparency=https://github.com/jeromeetienne/threex.transparency/archive/master.zip
+```
+
+then you add that in your html
+
+```html
+<script src="bower_components/threex.transparency/threex.transparency.js"></script>
+```
+
 
 ## How To Use It ?
 
