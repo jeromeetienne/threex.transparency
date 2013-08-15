@@ -28,9 +28,10 @@ then you add that in your html
 <script src="bower_components/threex.transparency/threex.transparency.js"></script>
 ```
 
-
 ## How To Use It ?
 
+The algo is well described in this
+[opengl tutorial about transparency](http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-10-transparency/). We just adapt it to fit three.js.
 First you setup all the objects that you want to be transparent
 
 ```

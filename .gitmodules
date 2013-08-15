@@ -1,3 +1,0 @@
-[submodule "examples/vendor/three.js"]
-	path = examples/vendor/three.js
-	url = git://github.com/mrdoob/three.js.git
