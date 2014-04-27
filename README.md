@@ -4,7 +4,6 @@ threex.transparency
 It is a three.js extension to easily handle transparency.
 Here is a [basic example](http://jeromeetienne.github.io/threex.transparency/examples/basic.html). It is released under MIT license.
 
-
 A Screenshot
 ============
 [![screenshot](https://raw.githubusercontent.com/jeromeetienne/threex.transparency/master/examples/images/screenshot-threex-transparency-512x512.jpg)](http://jeromeetienne.github.io/threex.transparency/examples/basic.html)
