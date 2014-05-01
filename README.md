@@ -13,28 +13,19 @@ A Screenshot
 ============
 [![screenshot](https://raw.githubusercontent.com/jeromeetienne/threex.transparency/master/examples/images/screenshot-threex-transparency-512x512.jpg)](http://jeromeetienne.github.io/threex.transparency/examples/basic.html)
 
-## How To install it
+How To Install It
+=================
 
-You can install it manually or with
-[bower](http://bower.io/).
-for the manual version, first include ```threex.transparency.js``` with the usual
+You can install it via script tag
 
 ```html
 <script src='threex.transparency.js'></script>
 ```
 
-or with
-[bower](http://bower.io/) 
-you type the following to install the package.
+Or you can install with [bower](http://bower.io/), as you wish.
 
 ```bash
-bower install -s threex.transparency=https://github.com/jeromeetienne/threex.transparency/archive/master.zip
-```
-
-then you add that in your html
-
-```html
-<script src="bower_components/threex.transparency/threex.transparency.js"></script>
+bower install threex.transparency
 ```
 
 ## How To Use It ?
