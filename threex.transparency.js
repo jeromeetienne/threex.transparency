@@ -35,7 +35,7 @@ THREEx.Transparency.update	= function(objects, camera){
 		// update the matrixWorld of the object and its children
 		object.updateMatrixWorld()
 		// compute its position in screen space 
-		position.getPositionFromMatrix( object.matrixWorld );
+		position.setFromMatrixPosition( object.matrixWorld );
 		position.applyProjection( screenMatrix );
 		// use the position.x as renderDepth
 		object.renderDepth	= position.z;
