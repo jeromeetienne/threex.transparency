@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <script src="vendor/three.js/build/three.min.js"></script>
 <script src="../threex.transparency.js"></script>
-<body style='margin: 0px; background-color: #bbbbbb; overflow: hidden;'><script>
+<body style='margin: 0px; overflow: hidden;'><script>
 	var renderer	= new THREE.WebGLRenderer();
 	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.setClearColor( 0xbbbbbb );
 	document.body.appendChild( renderer.domElement );
 
 	var updateFcts	= [];
@@ -14,7 +15,7 @@
 	//////////////////////////////////////////////////////////////////////////////////
 	//		build the texture						//
 	//////////////////////////////////////////////////////////////////////////////////
-	
+
 	var canvas	= document.createElement( 'canvas' );
 	canvas.width	= 256
 	canvas.height	= 64;
@@ -32,9 +33,9 @@
 	//////////////////////////////////////////////////////////////////////////////////
 	//		add random Planes						//
 	//////////////////////////////////////////////////////////////////////////////////
-	
+
 	var planes	= [];
-	
+
 	var geometry	= new THREE.PlaneGeometry(1,canvas.height/canvas.width)
 	var material	= new THREE.MeshBasicMaterial()
 	material.map	= texture
@@ -72,7 +73,7 @@
 	scene.add( cube );
 	updateFcts.push(function(delta, now){
 		cube.rotation.x += 1 * delta;
-		cube.rotation.y += 0.01;		
+		cube.rotation.y += 0.01;
 	})
 
 	//////////////////////////////////////////////////////////////////////////////////
@@ -85,9 +86,9 @@
 	updateFcts.push(function(delta, now){
 		var angle	= 0.2 * now * Math.PI * 2
 		sphere.position.x	= Math.cos(angle)*3.5
-		sphere.position.z	= Math.sin(angle)*3.5		
+		sphere.position.z	= Math.sin(angle)*3.5
 	})
-	
+
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Camera Controls							//
 	//////////////////////////////////////////////////////////////////////////////////
@@ -107,9 +108,9 @@
 	//		render the scene						//
 	//////////////////////////////////////////////////////////////////////////////////
 	updateFcts.push(function(){
-		renderer.render( scene, camera );		
+		renderer.render( scene, camera );
 	})
-	
+
 	//////////////////////////////////////////////////////////////////////////////////
 	//		loop runner							//
 	//////////////////////////////////////////////////////////////////////////////////
