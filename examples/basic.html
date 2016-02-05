@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <script src="vendor/three.js/build/three.min.js"></script>
+<script src="vendor/three.js/examples/js/controls/OrbitControls.js"></script>
 <script src="../threex.transparency.js"></script>
 <body style='margin: 0px; overflow: hidden;'><script>
 	var renderer	= new THREE.WebGLRenderer();
@@ -11,49 +12,39 @@
 	var scene	= new THREE.Scene();
 	var camera	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10 );
 	camera.position.z = 3;
+	
+	var controls	= new THREE.OrbitControls(camera)
+	updateFcts.push(function(){
+		controls.update()
+	})
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		build the texture						//
 	//////////////////////////////////////////////////////////////////////////////////
 
-	var canvas	= document.createElement( 'canvas' );
-	canvas.width	= 256
-	canvas.height	= 64;
-	var context	= canvas.getContext( '2d' );
-	context.lineWidth = 10;
-	context.strokeStyle = 'cyan';
-	context.strokeRect( 0, 0, canvas.width, canvas.height );
-	context.font	= "bolder 50px Verdana";
-	context.fillStyle = 'blue'
-	context.fillText('THREEx', 30, 50/2+canvas.height/2);
-	var texture = new THREE.Texture( canvas );
-	texture.needsUpdate	= true;
-	texture.anisotropy	= 16
-
+	var url = 'images/dices-transparent.png'
+	// var url = 'images/glass-sphere-with-transparency_153267809.jpg'
+	// var url = 'images/mercury-transparent.png'
+	var texture = THREE.ImageUtils.loadTexture(url)
 	//////////////////////////////////////////////////////////////////////////////////
 	//		add random Planes						//
 	//////////////////////////////////////////////////////////////////////////////////
 
 	var planes	= [];
 
-	var geometry	= new THREE.PlaneBufferGeometry(1,canvas.height/canvas.width)
+	var geometry	= new THREE.PlaneBufferGeometry(1,1)
 	var material	= new THREE.MeshBasicMaterial()
 	material.map	= texture
 	material.side	= THREE.DoubleSide
 
-	var nObjects	= 150
-	for(var i = 0; i < nObjects; i++){
+	for(var i = 0; i < 10; i++){
 		var mesh	= new THREE.Mesh(geometry, material);
-		scene.add(mesh)
-		mesh.position.x	= 5*(Math.random()-0.5)
-		mesh.position.z	= - (i/nObjects-0.5) * 5
-		mesh.rotation.x	= Math.random() * Math.PI * 2
-		mesh.rotation.y	= Math.random() * Math.PI * 2
-		mesh.rotation.z	= Math.random() * Math.PI * 2
-
-		planes.push(mesh)
+		mesh.lookAt(new THREE.Vector3(0,1,0))
+		mesh.position.x = 0.1*i
+		mesh.position.y = 0.1*i
+		scene.add(mesh)	
+		planes.push(mesh)		
 	}
-
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Use THREEx.Transparency						//
@@ -64,45 +55,31 @@
 		THREEx.Transparency.update(planes, camera)
 	})
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		add an cube and make it move					//
-	//////////////////////////////////////////////////////////////////////////////////
-	var geometry	= new THREE.BoxGeometry( 1, 1, 1);
-	var material	= new THREE.MeshNormalMaterial();
-	var cube	= new THREE.Mesh( geometry, material );
-	scene.add( cube );
-	updateFcts.push(function(delta, now){
-		cube.rotation.x += 1 * delta;
-		cube.rotation.y += 0.01;
-	})
-
-	//////////////////////////////////////////////////////////////////////////////////
-	//		add an sphere and make it move					//
-	//////////////////////////////////////////////////////////////////////////////////
-	var geometry	= new THREE.SphereGeometry( 0.5 );
-	var material	= new THREE.MeshNormalMaterial();
-	var sphere	= new THREE.Mesh( geometry, material );
-	scene.add( sphere );
-	updateFcts.push(function(delta, now){
-		var angle	= 0.2 * now * Math.PI * 2
-		sphere.position.x	= Math.cos(angle)*3.5
-		sphere.position.z	= Math.sin(angle)*3.5
-	})
-
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Camera Controls							//
-	//////////////////////////////////////////////////////////////////////////////////
-	var mouse	= {x : 0, y : 0}
-	document.addEventListener('mousemove', function(event){
-		mouse.x	= (event.clientX / window.innerWidth ) - 0.5
-		mouse.y	= (event.clientY / window.innerHeight) - 0.5
-	}, false)
-	updateFcts.push(function(delta, now){
-		camera.position.x += (mouse.x*10 - camera.position.x) * 0.03
-		camera.position.y += (mouse.y*10 - camera.position.y) * 0.03
-		camera.lookAt( scene.position )
-	})
-
+	// //////////////////////////////////////////////////////////////////////////////////
+	// //		add an cube and make it move					//
+	// //////////////////////////////////////////////////////////////////////////////////
+	// var geometry	= new THREE.BoxGeometry( 1, 1, 1);
+	// var material	= new THREE.MeshNormalMaterial();
+	// var cube	= new THREE.Mesh( geometry, material );
+	// scene.add( cube );
+	// updateFcts.push(function(delta, now){
+	// 	cube.rotation.x += 1 * delta;
+	// 	cube.rotation.y += 0.01;
+	// })
+	// 
+	// //////////////////////////////////////////////////////////////////////////////////
+	// //		add an sphere and make it move					//
+	// //////////////////////////////////////////////////////////////////////////////////
+	// var geometry	= new THREE.SphereGeometry( 0.5 );
+	// var material	= new THREE.MeshNormalMaterial();
+	// var sphere	= new THREE.Mesh( geometry, material );
+	// scene.add( sphere );
+	// updateFcts.push(function(delta, now){
+	// 	var angle	= 0.2 * now * Math.PI * 2
+	// 	sphere.position.x	= Math.cos(angle)*3.5
+	// 	sphere.position.z	= Math.sin(angle)*3.5
+	// })
+	
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		render the scene						//
